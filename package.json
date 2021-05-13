@@ -48,8 +48,6 @@
   "bugs": {
     "url": "https://github.com/Msandres123/detail-works-vt-capstone/issues"
   },
-  "homepage": "https://github.com/Msandres123/detail-works-vt-capstone#readme",
-  "resolutions": {
-    "react-transition-group": "4.0.0"
-  }
+  "homepage": "https://github.com/Msandres123/detail-works-vt-capstone#readme"
+  
 }
