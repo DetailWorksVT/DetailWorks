@@ -198,7 +198,7 @@ export default function AdminPage(props) {
                 <button type="submit">Export as CSV</button>
               </form>
             </div>
-            <h2>Edit Appointment Availabilitycd</h2>
+            <h2>Edit Appointment Availability</h2>
             <form method="POST" action="/availability">
               <DatePicker
               value={modDate}
