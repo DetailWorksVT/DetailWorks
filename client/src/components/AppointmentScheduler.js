@@ -129,7 +129,7 @@ useEffect(() => {
       ) {
         scheduleArrEight.push(appointment); //pushes existing appointments for that date at 8:00am into an array
         setScheduledEight(scheduleArrEight.length);
-        if (scheduleArrEight.length >= ((availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].eightAM) || 3) ) {
+        if (scheduleArrEight.length >= ((availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].eightAM) || 4) ) {
           setUnavailableEight(true); // if the amount of appointments is greater than 3 disables time slot for that particular date
         } else if (availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].eightAM === 0) {
           setUnavailableEight(true)
@@ -142,7 +142,7 @@ useEffect(() => {
         scheduleArrNoon.push(appointment); //pushes existing appointments for that date at 12:00pm into an array
         setScheduledNoon(scheduleArrNoon.length);
 
-        if (scheduleArrNoon.length >= ((availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].noon) || 3)) {
+        if (scheduleArrNoon.length >= ((availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].noon) || 4)) {
           console.log(availabilityCheck[appointment.appointmentDate].noon)
           setUnavailableNoon(true); // if the amount of appointments is greater than 3 disables time slot for that particular date
         } else if (availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].noon === 0){
