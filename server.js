@@ -101,7 +101,7 @@ app.post("/api", async (req, res) => {
   res.redirect("/");
   /*------------------------------------------------------------------------------------*/
   let mailOptions = {
-    from: "hello@detailworksvt.com",
+    from: "info@detailworksvt.com",
     to: req.body.email,
     subject: "Your appointment has been made.",
     text: `Hello ${req.body.firstName} ${req.body.lastName} \n Your appointment on ${req.body.appointmentDate} at ${req.body.timeOfApp} has been schedule with Detail Works VT. Thank You for your business and we look forward to seeing you. \n
