@@ -150,7 +150,7 @@ async function queryDb() {
     cron.schedule("00 00 07 * * *", () => {
       if (tomorrow === appointment.appointmentDate) {
         const mailReminder = {
-          from: "DWVTtest@gmail.com",
+          from: "info@detailworksvt.com",
           to: appointment.email,
           subject: "Appointment Reminder Detail Works VT",
           text: `Hello ${appointment.firstName} ${appointment.lastName} \n
