@@ -1,4 +1,4 @@
-//React components 
+//React components
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,7 +14,7 @@ export default function AppointmentScheduler() {
   const [price, setPrice] = useState(0);
   //Scheduling Variables
   const [dateOfApp, setDateOfApp] = useState("");
-  let properDate = dateOfApp.toLocaleString().split(",")[0]
+  let properDate = dateOfApp.toLocaleString().split(",")[0];
   const [time, setTime] = useState("");
   const previousDate = usePrevious(dateOfApp);
   const [unavailableEight, setUnavailableEight] = useState(false);
@@ -24,13 +24,13 @@ export default function AppointmentScheduler() {
   const [scheduledEight, setScheduledEight] = useState(0);
   const [email, setEmail] = useState("");
   const [matchEmail, setMatchEmail] = useState("");
-  const [availabilityCheck, setAvailabilityCheck] = useState("")
+  const [availabilityCheck, setAvailabilityCheck] = useState("");
 
   //Email list variables
   const [subDTWL, setSubDTWL] = useState("No");
   const [subSL, setSubSL] = useState("No");
 
-//Function to store perviously selected values
+  //Function to store perviously selected values
   function usePrevious(value) {
     const ref = useRef();
     useEffect(() => {
@@ -39,21 +39,20 @@ export default function AppointmentScheduler() {
     return ref.current;
   }
 
-  
-//Function that filters out and disables weekends
-  const isWeekday = date => {
+  //Function that filters out and disables weekends
+  const isWeekday = (date) => {
     const day = date.getDay();
     return day !== 0 && day !== 6;
-  }
+  };
 
-//Handles the selection of different dates
+  //Handles the selection of different dates
   function dateChangeHandle(date) {
     setDateOfApp(date);
     setTime("");
     setUnavailableEight(false);
     setUnavailableNoon(false);
   }
-//Handles the selection of different vehicle types
+  //Handles the selection of different vehicle types
   function vehicleChangeHandle(evt) {
     setVehicleType(evt.target.value);
     setPrice(0);
@@ -67,16 +66,16 @@ export default function AppointmentScheduler() {
   function emailMatchChangeHandle(evt) {
     setMatchEmail(evt.target.value);
   }
-//subscribe to the Detail Works subscriber list
-  function handleDWClick(){
+  //subscribe to the Detail Works subscriber list
+  function handleDWClick() {
     if (subDTWL !== "Yes") {
       setSubDTWL("Yes");
     } else {
       setSubDTWL("No");
     }
   }
-//subscribe to the Spectrum subscriber list
-  function handleSpecClick(){
+  //subscribe to the Spectrum subscriber list
+  function handleSpecClick() {
     if (subSL !== "Yes") {
       setSubSL("Yes");
     } else {
@@ -87,18 +86,18 @@ export default function AppointmentScheduler() {
   function alertOnSubmit() {
     alert("Your appointment has been successfully booked");
   }
-//Queries the database 
-useEffect(() => {
-  if (dateOfApp !== previousDate) {
-    fetch("/api/availability/")
-    .then((res) => res.json())
-    .then((availability) => {
-      setAvailabilityCheck(availability)
-    })
-  }
-})  
+  //Queries the database
+  useEffect(() => {
+    if (dateOfApp !== previousDate) {
+      fetch("/api/availability/")
+        .then((res) => res.json())
+        .then((availability) => {
+          setAvailabilityCheck(availability);
+        });
+    }
+  });
 
-useEffect(() => {
+  useEffect(() => {
     if (dateOfApp !== previousDate) {
       fetch(`/api/`)
         .then((res) => res.json())
@@ -108,13 +107,13 @@ useEffect(() => {
     }
     blackOut();
   });
-//puts results queried from DB into an array 
+  //puts results queried from DB into an array
   let appointmentArr = [];
   appointmentsMade &&
     appointmentsMade.forEach((appointment) => {
       appointmentArr.push(appointment);
     });
-//Prevents overbooking and limits 4 appointments to each time slot for any given day
+  //Prevents overbooking and limits 4 appointments to each time slot for any given day
   function blackOut() {
     let scheduleArrEight = [];
     let scheduleArrNoon = [];
@@ -122,18 +121,22 @@ useEffect(() => {
     setScheduledNoon(0);
     //iterates through each appointment in database
     appointmentArr.forEach((appointment) => {
-      //Finds appointments in DB for date user selects 
+      //Finds appointments in DB for date user selects
       if (
         appointment.appointmentDate === properDate && //compares appointments in DB to date selected at 8:00
-        appointment.timeOfApp === "8:00am" 
+        appointment.timeOfApp === "8:00am"
       ) {
         scheduleArrEight.push(appointment); //pushes existing appointments for that date at 8:00am into an array
         setScheduledEight(scheduleArrEight.length);
 
-        if (availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].eightAM === 0) {
-          setUnavailableEight(true)
-        }
-        else if (scheduleArrEight.length >= ((availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].eightAM) || 4) ) {
+        if (availabilityCheck[appointment.appointmentDate].eightAM === 0) {
+          setUnavailableEight(true);
+        } else if (
+          scheduleArrEight.length >=
+          ((availabilityCheck[appointment.appointmentDate] &&
+            availabilityCheck[appointment.appointmentDate].eightAM) ||
+            4)
+        ) {
           setUnavailableEight(true); // if the amount of appointments is greater than 3 disables time slot for that particular date
         }
       }
@@ -143,19 +146,22 @@ useEffect(() => {
       ) {
         scheduleArrNoon.push(appointment); //pushes existing appointments for that date at 12:00pm into an array
         setScheduledNoon(scheduleArrNoon.length);
-        if (availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].noon === 0){
-          setUnavailableNoon(true)
-        }
-
-       else if (scheduleArrNoon.length >= ((availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].noon) || 4)) {
-          console.log(availabilityCheck[appointment.appointmentDate].noon)
+        if (availabilityCheck[appointment.appointmentDate].noon === 0) {
+          setUnavailableNoon(true);
+        } else if (
+          scheduleArrNoon.length >=
+          ((availabilityCheck[appointment.appointmentDate] &&
+            availabilityCheck[appointment.appointmentDate].noon) ||
+            4)
+        ) {
+          console.log(availabilityCheck[appointment.appointmentDate].noon);
           setUnavailableNoon(true); // if the amount of appointments is greater than 3 disables time slot for that particular date
         }
       }
     });
   }
   return (
-    //JSX HTML 
+    //JSX HTML
     <div id="appointment-scheduler-container">
       <h2 id="schedule-header">Schedule an Appointment</h2>
       <form
@@ -269,18 +275,22 @@ useEffect(() => {
               onChange={(evt) => dateChangeHandle(evt)}
               required
             /> */}
-          <br/>
-          <DatePicker
-            value={dateOfApp}
-            minDate={new Date()}
-            selected={dateOfApp}
-            filterDate={isWeekday}
-            onChange={(date) => dateChangeHandle(date)}
-            dateFormat="MM/dd/yyyy"
-          />
+            <br />
+            <DatePicker
+              value={dateOfApp}
+              minDate={new Date()}
+              selected={dateOfApp}
+              filterDate={isWeekday}
+              onChange={(date) => dateChangeHandle(date)}
+              dateFormat="MM/dd/yyyy"
+            />
           </div>
           <input type="hidden" name="appointmentDate" value={properDate} />
-          <input type="hidden" name="initialAppointmentDate" value={dateOfApp} />
+          <input
+            type="hidden"
+            name="initialAppointmentDate"
+            value={dateOfApp}
+          />
           <br />
           <span>
             Select a Time: <span className="asterisk">*</span>
@@ -303,12 +313,20 @@ useEffect(() => {
         </div>
         {dateOfApp && (
           <h6>
-            There are {((availabilityCheck[properDate] && availabilityCheck[properDate].eightAM) || 4) - scheduledEight} appointments remaining at 8:00am
+            There are{" "}
+            {((availabilityCheck[properDate] &&
+              availabilityCheck[properDate].eightAM) ||
+              4) - scheduledEight}{" "}
+            appointments remaining at 8:00am
           </h6>
         )}
         {dateOfApp && (
           <h6>
-            There are {((availabilityCheck[properDate] && availabilityCheck[properDate].noon) || 4) - scheduledNoon} appointments remaining at 12:00pm
+            There are{" "}
+            {((availabilityCheck[properDate] &&
+              availabilityCheck[properDate].noon) ||
+              4) - scheduledNoon}{" "}
+            appointments remaining at 12:00pm
           </h6>
         )}
         <br />
@@ -321,11 +339,7 @@ useEffect(() => {
           style={{ width: "15vw" }}
           disabled={email !== matchEmail} //disables submit if emails dont match
         />
-       
       </form>
-      
-     
-  
     </div>
   );
 }
