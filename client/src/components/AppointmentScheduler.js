@@ -129,7 +129,7 @@ export default function AppointmentScheduler() {
         scheduleArrEight.push(appointment); //pushes existing appointments for that date at 8:00am into an array
         setScheduledEight(scheduleArrEight.length);
 
-        if (availabilityCheck[appointment.appointmentDate].eightAM === 0) {
+        if (availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].eightAM === 0) {
           setUnavailableEight(true);
         } else if (
           scheduleArrEight.length ===
@@ -146,7 +146,7 @@ export default function AppointmentScheduler() {
       ) {
         scheduleArrNoon.push(appointment); //pushes existing appointments for that date at 12:00pm into an array
         setScheduledNoon(scheduleArrNoon.length);
-        if (availabilityCheck[appointment.appointmentDate].noon === 0) {
+        if (availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].noon === 0) {
           setUnavailableNoon(true);
         } else if (
           scheduleArrNoon.length ===
