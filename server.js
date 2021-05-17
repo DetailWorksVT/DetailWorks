@@ -122,7 +122,7 @@ app.post("/availability", async (req, res) => {
 
   let existingRecords = await AvailabilityModel.findOne({ date: req.body.date });
   if (existingRecords) {
-   await  AvailabilityModel.replaceOne(req.body, { $set: req.body });
+   await  AvailabilityModel.updateOne(req.body, { $set: req.body });
   } else {
     await newAvailibilty.save();
     console.log(req.body);
