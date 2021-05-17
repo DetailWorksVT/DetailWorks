@@ -131,6 +131,8 @@ useEffect(() => {
         setScheduledEight(scheduleArrEight.length);
         if (scheduleArrEight.length >= ((availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].eightAM) || 3) ) {
           setUnavailableEight(true); // if the amount of appointments is greater than 3 disables time slot for that particular date
+        } else if (availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].eightAM === 0) {
+          setUnavailableEight(true)
         }
       }
       if (
@@ -143,6 +145,8 @@ useEffect(() => {
         if (scheduleArrNoon.length >= ((availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].noon) || 3)) {
           console.log(availabilityCheck[appointment.appointmentDate].noon)
           setUnavailableNoon(true); // if the amount of appointments is greater than 3 disables time slot for that particular date
+        } else if (availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].noon === 0){
+          setUnavailableNoon(true)
         }
       }
     });
