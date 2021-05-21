@@ -336,7 +336,7 @@ export default function AppointmentScheduler() {
           className="submit"
           type="submit"
           value="Schedule Appointment"
-          style={{ width: "15vw" }}
+          style={{ width: "25vw" }}
           disabled={email !== matchEmail} //disables submit if emails dont match
         />
       </form>

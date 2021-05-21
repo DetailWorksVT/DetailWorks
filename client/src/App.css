@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
 body {
   margin:0;
-  background-color: #f8f8ff;
   font-family: "Questrial", sans-serif;
 }
 /* Container for the whole page */
@@ -9,7 +8,7 @@ body {
   position: relative;
   height: 100%;
   width: 100vw;
-  background-color: #f8f8ff;
+  
   display: flex;
   justify-content: flex;
   /* align-items:center; */
@@ -62,9 +61,6 @@ body {
   text-align: left;
   justify-content: flex-start;
   height: 27vh;
-  
-
-  background-color: #f8f8ff;
 }
 
 /* NavBar.js container for the h8 and higher that ideally persists on all pages */
@@ -112,14 +108,14 @@ body {
   margin-bottom: 3%;
   margin-left: 35vw;
   width: 30vw;
-  background-color: #f8f8ff;
+ 
 }
 #appointment-container-admin {
   /* box-shadow: 0 0 5px gray; */
   border: 2px outset lightgray;
   margin-bottom: 3%;
   width: 30vw;
-  background-color: #f8f8ff;
+  
 }
 /* AdminSignIn.js standalone containerless section  */
 .admin-signin {
@@ -145,7 +141,7 @@ body {
   flex-direction: column;
   height: 100vh;
   width: 50vw;
-  background-color: #f8f8ff;
+
   margin-left: 35vw;
 }
 /* Admin page container */
